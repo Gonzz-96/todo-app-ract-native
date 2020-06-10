@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import {View, ScrollView, StyleSheet, SafeAreaView, Text} from 'react-native';
 
+import Heading from './Heading';
+
 const TodoApp = () => {
   const [todos, setTodos] = useState([]);
   const [inputValues, setInputValues] = useState('');
@@ -10,7 +12,9 @@ const TodoApp = () => {
     <SafeAreaView style={StyleSheet.container}>
       <ScrollView
         keyboardShouldPersistTaps="always"
-        style={StyleSheet.content}></ScrollView>
+        style={StyleSheet.content}>
+        <Heading />
+      </ScrollView>
     </SafeAreaView>
   );
 };
