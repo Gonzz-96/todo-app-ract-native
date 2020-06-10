@@ -3,6 +3,7 @@ import {View, ScrollView, StyleSheet, SafeAreaView, Text} from 'react-native';
 
 import Heading from './Heading';
 import Input from './Input';
+import Button from './Button';
 
 let todoIndex = 0;
 
@@ -11,11 +12,26 @@ const TodoApp = () => {
   const [inputValue, setInputValue] = useState('');
   const [todoType, setTodoType] = useState('');
 
+  const submitTodo = useCallback(() => {
+    if (inputValue.match(/^\s*$/)) {
+      return
+    }
+    const todo = {
+      title: inputValue,
+      todoIndex,
+      complete: false
+    }
+    todoIndex++;
+    setTodos(current => [...current, todo]);
+    console.log(todos)
+  }, [todos])
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView keyboardShouldPersistTaps="always" style={styles.content}>
         <Heading />
         <Input inputValue={inputValue} onInputChange={setInputValue} />
+        <Button submitTodo={submitTodo}/>
       </ScrollView>
     </SafeAreaView>
   );
