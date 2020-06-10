@@ -11,8 +11,10 @@ import {
   SafeAreaView,
 } from 'react-native';
 
+import TodoApp from './components/TodoApp';
+
 const App = () => {
-  return <SafeAreaView></SafeAreaView>;
+  return <TodoApp />;
 };
 
 export default App;
