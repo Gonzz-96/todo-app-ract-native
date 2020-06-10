@@ -1,21 +1,21 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import {View, ScrollView, StyleSheet, SafeAreaView, Text} from 'react-native';
 
 import Heading from './Heading';
 import Input from './Input';
 
+let todoIndex = 0;
+
 const TodoApp = () => {
   const [todos, setTodos] = useState([]);
-  const [inputValues, setInputValues] = useState('');
+  const [inputValue, setInputValue] = useState('');
   const [todoType, setTodoType] = useState('');
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView
-        keyboardShouldPersistTaps="always"
-        style={styles.content}>
+      <ScrollView keyboardShouldPersistTaps="always" style={styles.content}>
         <Heading />
-        <Input />
+        <Input inputValue={inputValue} onInputChange={setInputValue} />
       </ScrollView>
     </SafeAreaView>
   );
