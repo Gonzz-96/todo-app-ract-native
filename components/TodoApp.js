@@ -1,9 +1,17 @@
 import React, {useState, useCallback} from 'react';
-import {View, ScrollView, StyleSheet, SafeAreaView, Text} from 'react-native';
+import {
+  View,
+  ScrollView,
+  StyleSheet,
+  SafeAreaView,
+  Text,
+  FlatList,
+} from 'react-native';
 
 import Heading from './Heading';
 import Input from './Input';
 import Button from './Button';
+import Todo from './Todo';
 
 let todoIndex = 0;
 
@@ -12,28 +20,32 @@ const TodoApp = () => {
   const [inputValue, setInputValue] = useState('');
   const [todoType, setTodoType] = useState('');
 
-  const submitTodo = useCallback(() => {
+  const submitTodo = () => {
     if (inputValue.match(/^\s*$/)) {
-      return
+      return;
     }
     const todo = {
       title: inputValue,
       todoIndex,
-      complete: false
-    }
+      complete: false,
+    };
     todoIndex++;
-    setTodos(current => [...current, todo]);
-    console.log(todos)
-  }, [todos])
+    setTodos((current) => [...current, todo]);
+    console.log(todos);
+  };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView keyboardShouldPersistTaps="always" style={styles.content}>
+    <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <Heading />
         <Input inputValue={inputValue} onInputChange={setInputValue} />
-        <Button submitTodo={submitTodo}/>
-      </ScrollView>
-    </SafeAreaView>
+        <FlatList
+          data={todos}
+          keyExtractor={(item) => item.todoIndex.toString()}
+          renderItem={({item}) => <Todo todo={item} />} />
+        <Button submitTodo={submitTodo} />
+      </SafeAreaView>
+    </View>
   );
 };
 
